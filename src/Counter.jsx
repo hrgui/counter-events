@@ -1,21 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useStore } from "@nanostores/react";
+import { $counter } from "./counter.js";
 
 export function Counter() {
-  const ref = useRef();
-
-  useEffect(() => {
-    const listener = (event) => {
-      ref.current.textContent = event.detail;
-    };
-    window.addEventListener("CounterResponse", listener);
-    return () => {
-      window.removeEventListener("CounterResponse", listener);
-    };
-  });
-
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent("CounterRequest"));
-  }, []);
+  const counter = useStore($counter);
 
   return (
     <div>
@@ -26,7 +13,7 @@ export function Counter() {
       >
         +
       </button>
-      <span ref={ref} />
+      <span>{counter}</span>
       <button
         onClick={() =>
           window.dispatchEvent(new CustomEvent("CounterRequest", { detail: { by: -1 } }))
