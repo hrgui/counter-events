@@ -5,7 +5,9 @@ export function Counter() {
   const counter = useStore($counter);
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw" }}
+    >
       <button
         onClick={() =>
           window.dispatchEvent(new CustomEvent("CounterRequest", { detail: { by: 1 } }))
